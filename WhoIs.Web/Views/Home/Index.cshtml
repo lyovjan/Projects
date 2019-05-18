@@ -1,0 +1,95 @@
+﻿@using WhoIs.Models
+@model FullInfoModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+<style>
+    /* Set the size of the div element that contains the map */
+    #map {
+        height: 400px; /* The height is 400 pixels */
+        width: 100%; /* The width is the width of the web page */
+    }
+</style>
+
+
+<div class="container">
+    <div class="row">
+        <div class="row">
+
+            <div class="form-group col-md-6">
+                <label class="form-control">Ip Address: @Model.Ip</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Continent: @Model.Continent</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Country: @Model.Country</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Country Code: @Model.CountryCode</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Country Flag: <img src="@Model.CountryFlag" width="32"/></label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Country Capital: @Model.CountryCapital</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Country Phone: @Model.CountryPhone</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Country Neighbours: @Model.CountryNeighbours</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Region: @Model.Region</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">TimeZone: @Model.TimezoneGmt</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Longitude: @Model.Longitude</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Latitude: @Model.Latitude</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Currency: @Model.Currency</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Currency Code: @Model.CurrencyCode</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Currency Symbol: @Model.CurrencySymbol</label>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-control">Currency Plural: @Model.CurrencyPlural</label>
+            </div>
+        </div>
+        <h3 class="form-group col-md-12">
+            <div style="text-align: center;" >View On map </div></h3>
+        <div id="map"></div>
+    </div>
+</div>
+<!--The div element for the map -->
+<script>
+    // Initialize and add the map
+    function initMap() {
+        // The location of Uluru
+        var uluru = { lat: @Model.Latitude, lng: @Model.Longitude};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 10, center: uluru});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: uluru, map: map});
+    }
+</script>
+<!--Load the API from the specified URL
+* The async attribute allows the browser to render the page while the API loads
+* The key parameter will contain your own API key (which is not needed for this tutorial)
+* The callback parameter executes the initMap() function
+-->
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?callback=initMap">
+</script>
